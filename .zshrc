@@ -1,4 +1,5 @@
 # users generic .zshrc file for zsh(1)
+SCRIPT_DIR=".zsh"
 
 ## Environment variable configuration
 #
@@ -23,89 +24,17 @@ colors
 setopt prompt_subst
 
 # ls_abbrev
-
-function ls_abbrev() {
-	# -a : Do not ignore entries starting with ..
-	# -C : Force multi-column output
-	# -F : Append indicator one of */=>@|) to entries.
-	local cmd_ls='ls'
-	local -a opt_ls
-	opt_ls=('-aCF' '--color=always')
-	case "${OSTYPE}" in
-		freebsd*|darwin*)
-			if type gls > /dev/null 2>&1; then
-				cmd_ls='gls'
-			else
-				# -G : Enable colorized output.
-				opt_ls=('-aCFG')
-			fi
-			;;
-	esac
-
-	local ls_result
-	ls_result=$(CLICOLOR_FORCE=1 COLUMNS=$COLUMNS command $cmd_ls ${opt_ls[@]} | sed $'/^\e\[[0-9;]*m$/d')
-
-	local ls_lines=$(echo "$ls_result" | wc -l | tr -d ' ')
-
-	if [ $ls_lines -gt 10 ]; then
-		echo "$ls_result" | head -n 5
-		echo '...'
-		echo "$ls_result" | tail -n 5
-		echo "$(command ls -l -A | wc -l | tr -d ' ') files exist"
-	else
-		echo "$ls_result"
-	fi
-}
-
-# execute ls(1) by enter
-
-function do_enter() {
-	if [ -n "$BUFFER" ]; then
-		zle accept-line
-		return 0;
-	fi
-
-	echo
-	ls_abbrev
-	zle reset-prompt
-	return 0
-}
-
-zle -N do_enter
-bindkey '^m' do_enter
+. ${SCRIPT_DIR}/fn/ls_abbrev.sh
 
 # show git-branch in rprompt
-
-function rprompt-git-current-branch {
-	local name st color
-
-	if [[ "$PWD" =~ '/\.git(/.*)?$' ]]; then
-                return
-        fi
-        name=$(basename "`git symbolic-ref HEAD 2> /dev/null`")
-        if [[ -z $name ]]; then
-                return
-        fi
-        st=`git status 2> /dev/null`
-        if [[ -n `echo "$st" | grep "^nothing to"` ]]; then
-                color=${fg[green]}
-        elif [[ -n `echo "$st" | grep "^nothing added"` ]]; then
-                color=${fg[yellow]}
-        elif [[ -n `echo "$st" | grep "^# Untracked"` ]]; then
-                color=${fg_bold[red]}
-        else
-                color=${fg[red]}
-        fi
-
-        echo "%{$color%}$name%{$reset_color%}:"
-}
+. ${SCRIPT_DIR}/fn/rprompt_git_current_branch.sh
 
 case ${UID} in
 0)
 	[[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 	PROMPT="%B%{[36m%}[%n@%m]#%{[m%}%b "
 	PROMPT2="%B%{[31m%}%_#%{[m%}%b "
-	RPROMPT="%{[36m%}(`rprompt-git-current-branch`%{[36m%}%~%)%{[m%}"
+	RPROMPT="%{[36m%}(`rprompt_git_current_branch`%{[36m%}%~%)%{[m%}"
 	SPROMPT="%B%{[31m%}%r is correct? [n,y,a,e]:%{${reset_color}%}%b "
 	[ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
 	PROMPT="%{${fg[white]}%}${HOST%%.*} ${PROMPT}"
@@ -113,7 +42,7 @@ case ${UID} in
 *)
 	PROMPT="%{[36m%}[%n@%m]%%%{[m%} "
 	PROMPT2="%{[31m%}%_%%%{[m%} "
-	RPROMPT='%{[36m%}(`rprompt-git-current-branch`%{[36m%}%~%)%{[m%}'
+	RPROMPT='%{[36m%}(`rprompt_git_current_branch`%{[36m%}%~%)%{[m%}'
 	SPROMPT="%{[31m%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
 	[ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
 	PROMPT="%{${fg[white]}%}${HOST%%.*} ${PROMPT}"
@@ -149,6 +78,10 @@ setopt nolistbeep
 # emacs like keybind (e.x. Ctrl-a goes to head of a line and Ctrl-e goes
 # to end of it)
 #
+
+# import original functions
+. ${SCRIPT_DIR}/bindkey/do_enter.sh 	# bindkey '^m' do_enter
+
 bindkey -e
 
 # historical backward/forward search with linehead string binded to ^P/^N
@@ -156,12 +89,16 @@ bindkey -e
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
+zle -N do_enter
 bindkey "^p" history-beginning-search-backward-end
 bindkey "^n" history-beginning-search-forward-end
 bindkey "\\ep" history-beginning-search-backward-end
 bindkey "\\en" history-beginning-search-forward-end
 bindkey "^R" history-incremental-pattern-search-backward
 bindkey "^S" history-incremental-pattern-search-forward
+bindkey '^m' do_enter
+
+
 
 ## Command history configuration
 #
@@ -182,29 +119,7 @@ compinit
 #
 setopt complete_aliases # aliased ls needs if file/dir completions work
 
-case "${OSTYPE}" in
-freebsd*|darwin*)
-	alias ls="ls -G -w"
-	;;
-linux*)
-	alias ls="ls --color"
-	;;
-esac
 
-alias a=alias
-alias du="du -h"
-alias df="df -h"
-alias h="history"
-alias j="jobs -l"
-alias la="ls -aF"
-alias lf="ls -F"
-alias ll="ls -lF"
-alias lla="ls -alF"
-alias sc="screen -D -RR"
-alias screen="screen -D -RR"
-alias su="su -l"
-alias va="vagrant"
-alias where="command -v"
 
 # default pager
 if [ -x "`which lv`" ]; then
@@ -217,9 +132,7 @@ else
 	export PAGER=more
 fi
 
-if [ "${PAGER}" != "less" ]; then
-	alias less=$PAGER
-fi
+. $SCRIPT_DIR/alias.sh
 
 ## terminal configuration
 #
@@ -261,52 +174,7 @@ esac
 export BLOCKSIZE=K
 export EDITOR=vi
 
-function ssh_screen()
-{
-	eval server=\${$#}
-	/usr/bin/screen -t $server ssh "$@"
-}
-
-if [ "$TERM" = "screen" ]; then
-	preexec() {
-		# see [zsh-workers:13180]
-		# http://www.zsh.org/mla/workers/2000/msg03993.html
-		emulate -L zsh
-		local -a cmd; cmd=(${(z)2})
-		case $cmd[1] in
-		fg)
-			if (( $#cmd == 1 )); then
-				cmd=(builtin jobs -l %+)
-			else
-				cmd=(builtin jobs -l $cmd[2])
-			fi
-			;;
-		%*)
-			cmd=(builtin jobs -l $cmd[1])
-			;;
-		cd)
-			if (( $#cmd == 2)); then
-				cmd[1]=$cmd[2]
-			fi
-			;;
-		*)
-			echo -n "k$cmd[1]:t\\"
-			return
-			;;
-		esac
-		local -A jt; jt=(${(kv)jobtexts})
-		$cmd >>(read num rest
-			cmd=(${(z)${(e):-\$jt$num}})
-			echo -n "k$cmd[1]:t\\") 2>/dev/null
-	}
-
-	alias ssh=ssh_screen
-
-	export LSCOLORS=ExFxCxdxBxegedabagacad
-	export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-	zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
-	zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z} r:|[-_.]=**'
-fi
+. "${SCRIPT_DIR}/fn/screen.sh"
 
 # reporttime
 export REPORTTIME=5
