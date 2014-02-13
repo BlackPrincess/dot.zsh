@@ -194,3 +194,17 @@ if [[ -d /usr/local/php ]]; then
 	source $(brew --prefix php-version)/php-version.sh
 	php-version 5.3.20 > /dev/null
 fi
+
+# -----------------------------
+# JVM SBT
+# ------------------------------
+export SBT_OPTS='-Xms1024m -Xmx1024m -Xss1M -XX:MaxPermSize=1024m'
+
+
+# -----------------------------
+# Android
+# ------------------------------
+export ANDROID_HOME=/Applications/android-sdk-macosx
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/build-tools
