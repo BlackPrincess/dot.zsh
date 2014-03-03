@@ -1,21 +1,22 @@
 # users generic .zshrc file for zsh(1)
-SCRIPT_DIR=".zsh"
+SCRIPT_DIR="${HOME}/.zsh"
 
-## Environment variable configuration
-#
+# ------------------------------
+# Environment variable configuration
+# ------------------------------
+
 # LANG
-#
 export LANG=ja_JP.UTF-8
 
-## OSX tar
-
+# OSX tarF
 export COPYFILE_DISABLE=1
 
-## Limit
-
+# Limit
 limit coredumpsize 0
 
-## Default shell configuration
+# ------------------------------
+# Default shell configuration
+# ------------------------------
 #
 # set prompt
 #
@@ -73,15 +74,16 @@ setopt noautoremoveslash
 #
 setopt nolistbeep
 
-## Keybind configuration
-#
-# emacs like keybind (e.x. Ctrl-a goes to head of a line and Ctrl-e goes
-# to end of it)
-#
+# ------------------------------
+# Keybind configuration
+# ------------------------------
 
 # import original functions
 . ${SCRIPT_DIR}/bindkey/do_enter.sh 	# bindkey '^m' do_enter
 
+# emacs like keybind (e.x. Ctrl-a goes to head of a line and Ctrl-e goes
+# to end of it)
+#
 bindkey -e
 
 # historical backward/forward search with linehead string binded to ^P/^N
@@ -99,27 +101,20 @@ bindkey "^S" history-incremental-pattern-search-forward
 bindkey '^m' do_enter
 
 
-
-## Command history configuration
-#
+# ------------------------------
+# Command history configuration
+# ------------------------------
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 setopt hist_ignore_dups		# ignore duplication command history list
 setopt share_history		# share command history data
 
-## Completion configuration
-#
+# ------------------------------
+# Completion configuration
+# ------------------------------
 autoload -U compinit
 compinit
-
-## Alias configuration
-#
-# expand aliases before completing
-#
-setopt complete_aliases # aliased ls needs if file/dir completions work
-
-
 
 # default pager
 if [ -x "`which lv`" ]; then
@@ -128,13 +123,24 @@ elif [ -x "`which jless`" ]; then
 	export PAGER=jless
 elif [ -x "`which less`" ]; then
 	export PAGER=less
+	export LESS='-R'
+	export LESSOPEN='| /usr/local/bin/src-hilite-lesspipe.sh %s'
 else
 	export PAGER=more
 fi
 
+# ------------------------------
+# Alias configuration
+# ------------------------------
+# expand aliases before completing
+setopt complete_aliases # aliased ls needs if file/dir completions work
+
+# import aliases
 . $SCRIPT_DIR/alias.sh
 
-## terminal configuration
+# ------------------------------
+# terminal configuration
+# ------------------------------
 #
 unset LSCOLORS
 case "${TERM}" in
@@ -169,8 +175,11 @@ kterm*|xterm*)
 	;;
 esac
 
-## original settings
-#
+
+
+# ------------------------------
+# original settings
+# ------------------------------
 export BLOCKSIZE=K
 export EDITOR=vi
 
@@ -195,13 +204,16 @@ if [[ -d /usr/local/php ]]; then
 	php-version 5.3.20 > /dev/null
 fi
 
-# -----------------------------
+. $SCRIPT_DIR/extends/cd.sh
+. $SCRIPT_DIR/extends/git-svn-clone.sh
+
+# ------------------------------
 # JVM SBT
 # ------------------------------
-export SBT_OPTS='-Xms1024m -Xmx1024m -Xss1M -XX:MaxPermSize=1024m'
+export SBT_OPTS='-Xms256m -Xmx512m -Xss1M -XX:MaxPermSize=1024m'
 
 
-# -----------------------------
+# ------------------------------
 # Android
 # ------------------------------
 export ANDROID_HOME=/Applications/android-sdk-macosx
