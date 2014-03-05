@@ -1,3 +1,6 @@
+# expand aliases before completing
+setopt complete_aliases # aliased ls needs if file/dir completions work
+
 case "${OSTYPE}" in
 freebsd*|darwin*)
   alias ls="ls -G -w"
