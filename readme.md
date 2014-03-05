@@ -1,5 +1,5 @@
 ```
-git clone $repositoryUrl ~/.zsh
-echo "ZDOTDIR=$HOME/.zsh" >> ~/.zshenv
+git clone $repositoryUrl ~/dot.zsh
+echo "ZDOTDIR=$HOME/dot.zsh" >> ~/.zshenv
 source ~/.zshenv
 ```
