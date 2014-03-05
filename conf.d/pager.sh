@@ -1,10 +1,6 @@
 # ------------------------------
-# Completion configuration
+# Pager configuration
 # ------------------------------
-autoload -U compinit
-compinit
-
-# default pager
 if [ -x "`which lv`" ]; then
   export PAGER=lv
 elif [ -x "`which jless`" ]; then

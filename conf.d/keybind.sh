@@ -1,6 +1,4 @@
 # import original functions
-. ${SCRIPT_DIR}/bindkey/do_enter.sh   # bindkey '^m' do_enter
-
 # emacs like keybind (e.x. Ctrl-a goes to head of a line and Ctrl-e goes
 # to end of it)
 #

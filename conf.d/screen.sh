@@ -1,9 +1,3 @@
-function ssh_screen()
-{
-  eval server=\${$#}
-  /usr/bin/screen -t $server ssh "$@"
-}
-
 if [ "$TERM" = "screen" ]; then
   preexec() {
     # see [zsh-workers:13180]

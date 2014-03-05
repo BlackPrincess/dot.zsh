@@ -8,12 +8,6 @@ autoload colors
 colors
 setopt prompt_subst
 
-# ls_abbrev
-. ${SCRIPT_DIR}/fn/ls_abbrev.sh
-
-# show git-branch in rprompt
-. ${SCRIPT_DIR}/fn/rprompt_git_current_branch.sh
-
 case ${UID} in
 0)
   [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
@@ -57,6 +51,10 @@ setopt noautoremoveslash
 # no beep sound when complete list displayed
 #
 setopt nolistbeep
+
+
+autoload -U compinit
+compinit
 
 # reporttime
 export REPORTTIME=5

@@ -2,18 +2,7 @@ export BLOCKSIZE=K
 export EDITOR=vi
 
 # ------------------------------
-# screen
-# ------------------------------
-. ${SCRIPT_DIR}/fn/screen.sh
-
-# ------------------------------
-# Command
-# ------------------------------
-. $SCRIPT_DIR/extends/cd.sh
-. $SCRIPT_DIR/extends/git-svn-clone.sh
-
-# ------------------------------
-# JVM SBT
+# Ruby
 # ------------------------------
 if [[ -s /usr/local/bin/rbenv ]] ; then
   # rbenv

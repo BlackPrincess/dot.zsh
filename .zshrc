@@ -12,29 +12,25 @@ SCRIPT_DIR="${HOME}/.zsh"
 . ${SCRIPT_DIR}/default.sh
 
 # ------------------------------
-# Keybind configuration
+# Load configuration
 # ------------------------------
-. ${SCRIPT_DIR}/keybind.sh
+. $SCRIPT_DIR/conf.d/terminal-color.sh
+. $SCRIPT_DIR/conf.d/history.sh
+. $SCRIPT_DIR/conf.d/alias.sh
+. $SCRIPT_DIR/conf.d/pager.sh
+. $SCRIPT_DIR/conf.d/keybind.sh
+. $SCRIPT_DIR/conf.d/screen.sh
 
 # ------------------------------
-# Command history configuration
+# Load Command
 # ------------------------------
-. ${SCRIPT_DIR}/history.sh
-
-# ------------------------------
-# Completion configuration
-# ------------------------------
-. ${SCRIPT_DIR}/completion.sh
-
-# ------------------------------
-# Alias configuration
-# ------------------------------
-. $SCRIPT_DIR/alias.sh
-
-# ------------------------------
-# terminal configuration
-# ------------------------------
-. $SCRIPT_DIR/terminal.sh
+# find $SCRIPT_DIR/extend-commands -name "*.sh" -exec . {} \;
+. $SCRIPT_DIR/extend-commands/cd.sh
+. $SCRIPT_DIR/extend-commands/git-svn-clone.sh
+. $SCRIPT_DIR/extend-commands/ls_abbrev.sh
+. $SCRIPT_DIR/extend-commands/ssh_screen.sh
+. $SCRIPT_DIR/extend-commands/rprompt_git_current_branch.sh
+. $SCRIPT_DIR/extend-commands/do_enter.sh
 
 # ------------------------------
 # original settings
