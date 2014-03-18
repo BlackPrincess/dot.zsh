@@ -15,8 +15,7 @@ fi
 # ------------------------------
 # JVM SBT
 # ------------------------------
-export SBT_OPTS='-Xms256m -Xmx512m -Xss1M -XX:MaxPermSize=1024m'
-
+export SBT_OPTS='-Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=1024M'
 
 # ------------------------------
 # Android
