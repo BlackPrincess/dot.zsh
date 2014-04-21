@@ -27,7 +27,7 @@ SCRIPT_DIR="${HOME}/.zsh"
 # find $SCRIPT_DIR/extend-commands -name "*.sh" -exec . {} \;
 . $SCRIPT_DIR/extend-commands/cd.sh
 . $SCRIPT_DIR/extend-commands/git-svn-clone.sh
-. $SCRIPT_DIR/extend-commands/git-reset-clean.sh
+. $SCRIPT_DIR/extend-commands/cd-git-root.sh
 . $SCRIPT_DIR/extend-commands/ls_abbrev.sh
 . $SCRIPT_DIR/extend-commands/ssh_screen.sh
 . $SCRIPT_DIR/extend-commands/rprompt_git_current_branch.sh

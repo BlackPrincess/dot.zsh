@@ -24,3 +24,13 @@ export ANDROID_HOME=/Applications/android-sdk-macosx
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$ANDROID_HOME/build-tools
+
+# ------------------------------
+# Haskell
+# ------------------------------
+export PATH=$PATH:$HOME/.cabal/bin
+
+# ------------------------------
+# user custom commands
+# ------------------------------
+. $SCRIPT_DIR/usercustom/extention-number.sh
