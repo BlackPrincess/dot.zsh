@@ -1,6 +1,7 @@
 # users generic .zshrc file for zsh(1)
 SCRIPT_DIR="${HOME}/.zsh"
 
+PROMPT=$'\U1F604 '
 # ------------------------------
 # Environment variable configuration
 # ------------------------------
