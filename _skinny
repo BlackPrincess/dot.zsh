@@ -1,0 +1,102 @@
+#compdef skinny
+
+_skinny() {
+	local context state line curcontext="$curcontext"
+	typeset -A opt_args
+
+	local ret=1
+
+	_arguments -C \
+		'1: :->cmds' \
+		'*::arg:->args' \
+	&& ret=0
+	
+	case $state in
+		cmds)
+			_values \ 'tasks' \
+				'run' \
+				'debug' \
+				'd' \
+				'clean' \
+				'update' \
+				'console' \
+				'~compile' \
+				'compile' \
+				'test' \
+				'~test' \
+				'test-quick' \
+				'~test-quick' \
+				'test-only' \
+				'~test-only' \
+				'test\:coverage' \
+				'scalajs\:watch' \
+				'scalajs\:package' \
+				'scalajs\:optimize' \
+				'generate' \
+				'db\:migrate' \
+				'db\:repair' \
+				'eclipse' \
+				'idea' \
+				'gen-idea' \
+				'package' \
+				'package\:standalone' \
+				'publish'
+		;;
+		(args)
+			curcontext="${curcontext%:*:*}:skinny-$words[1]:"
+			case $words[1] in
+				(g|generate)
+					_values \ 'commands' \
+						'controller' \
+						'model' \
+						'migration' \
+						'scaffold' \
+						'scaffold\:scaml' \
+						'scaffold\:jade' \
+						'reverse-scaffold' \
+						'reverse-scaffold\:scaml' \
+						'reverse-scaffold\:jade'
+				;;
+			esac
+		;;
+	esac
+}
+
+_skinny_cmds() {
+	local commands; commands=(
+		'run'
+		'debug'
+		'd'
+		'clean'
+		'update'
+		'console'
+		'~compile'
+		'compile'
+		'test'
+		'~test'
+		'test-quick'
+		'~test-quick'
+		'test-only'
+		'~test-only'
+		'test\:coverage'
+		'scalajs\:watch'
+		'scalajs\:package'
+		'scalajs\:optimize'
+		'generate'
+		'scaffold[skinny g scaffold:{template} {resources} {resource} "{fieldName:paramType(:columnType)}" ...]'
+		'migration'
+		'controller'
+		'db\:migrate'
+		'db\:repair'
+		'eclipse'
+		'idea'
+		'gen-idea'
+		'package'
+		'package\:standalone'
+	)
+}
+
+_skinny-generate() {
+}
+
+compdef _skinny skinny

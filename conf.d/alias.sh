@@ -30,4 +30,6 @@ if [ "${PAGER}" != "less" ]; then
 fi
 
 alias ssh=ssh_screen
-alias emacs=emacs-24.3
+
+alias git=hub
+compdef hub=git

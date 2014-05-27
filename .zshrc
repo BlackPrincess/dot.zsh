@@ -37,4 +37,6 @@ PROMPT=$'\U1F604 '
 # ------------------------------
 # original settings
 # ------------------------------
+fpath=(/usr/local/share/zsh-completions $fpath)
+
 . ${SCRIPT_DIR}/extend.sh
