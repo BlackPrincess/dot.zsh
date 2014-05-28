@@ -26,13 +26,12 @@ PROMPT=$'\U1F604 '
 # Load Command
 # ------------------------------
 # find $SCRIPT_DIR/extend-commands -name "*.sh" -exec . {} \;
-. $SCRIPT_DIR/extend-commands/cd.sh
-. $SCRIPT_DIR/extend-commands/git-svn-clone.sh
-. $SCRIPT_DIR/extend-commands/cd-git-root.sh
-. $SCRIPT_DIR/extend-commands/ls_abbrev.sh
-. $SCRIPT_DIR/extend-commands/ssh_screen.sh
-. $SCRIPT_DIR/extend-commands/rprompt_git_current_branch.sh
-. $SCRIPT_DIR/extend-commands/do_enter.sh
+. $SCRIPT_DIR/extra/cd.sh
+. $SCRIPT_DIR/extra/cd-git-root.sh
+. $SCRIPT_DIR/extra/ls_abbrev.sh
+. $SCRIPT_DIR/extra/ssh_screen.sh
+. $SCRIPT_DIR/extra/rprompt_git_current_branch.sh
+. $SCRIPT_DIR/extra/do_enter.sh
 
 # ------------------------------
 # original settings
