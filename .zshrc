@@ -32,6 +32,7 @@ PROMPT=$'\U1F604 '
 . $SCRIPT_DIR/extra/ssh_screen.sh
 . $SCRIPT_DIR/extra/rprompt_git_current_branch.sh
 . $SCRIPT_DIR/extra/do_enter.sh
+. $SCRIPT_DIR/extra/history-ranking.sh
 
 # ------------------------------
 # original settings
