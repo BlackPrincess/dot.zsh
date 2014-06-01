@@ -67,6 +67,7 @@ _skinny() {
 				(run)
 					_values \ 'commands' \
 						'-precompile[will run application with Scalate precompilation]'
+				;;
 			esac
 		;;
 	esac
