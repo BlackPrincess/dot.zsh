@@ -14,89 +14,62 @@ _skinny() {
 	case $state in
 		cmds)
 			_values \ 'tasks' \
-				'run' \
-				'debug' \
-				'd' \
-				'clean' \
-				'update' \
-				'console' \
-				'~compile' \
-				'compile' \
-				'test' \
-				'~test' \
-				'test-quick' \
-				'~test-quick' \
-				'test-only' \
-				'~test-only' \
-				'test\:coverage' \
-				'scalajs\:watch' \
-				'scalajs\:package' \
-				'scalajs\:optimize' \
-				'generate' \
-				'db\:migrate' \
-				'db\:repair' \
-				'eclipse' \
-				'idea' \
-				'gen-idea' \
-				'package' \
-				'package\:standalone' \
-				'publish'
+				'run[will run application for local development]' \
+				's[will run application for local development]' \
+				'server[will run application for local development]' \
+				'debug[will run application with JDWP. default port 5005]' \
+				'd[will run application with JDWP. default port 5005]' \
+				'clean[will clear target directory]' \
+				'update[will run sbt update]' \
+				'console[will run sbt console]' \
+				'compile[will compile all the classes]' \
+				'~compile[will compile all the classes when changes are detected]' \
+				'test[will run all the tests]' \
+				'~test[will run all the tests when changes are detected]' \
+				'test-quick[will run only failed tests]' \
+				'testQuick[will run only failed tests]' \
+				'~test-quick[will run only failed tests when changes are detected]' \
+				'~testQuick[will run only failed tests when changes are detected]' \
+				'test-only[will run the specified test]' \
+				'testOnly[will run the specified test]' \
+				'~test-only[will run the specified test when changes are detected]' \
+				'~testOnly[will run the specified test when changes are detected]' \
+				'test\:coverage[will run all the tests and output coverage reports]' \
+				'scalajs\:watch[will watch Scala.js Scala code change and convert to JS]' \
+				'scalajs\:package[will convert Scala.js Scala code to JS file]' \
+				'scalajs\:optimize[will optimize the huge JS file to optimized small JS]' \
+				'g[will generate codes]' \
+				'generate[will generate codes]' \
+				'db\:migrate[will execute database migration]' \
+				'db\:repair[will recover when previous migration failed]' \
+				'eclipse[will setup Scala IDE settings]' \
+				'idea[will setup IntelliJ IDEA settings]' \
+				'gen-idea[will setup IntelliJ IDEA settings]' \
+				'package[will create *.war file to deploy]' \
+				'package\:standalone[will create *.jar file to run as stand alone app]' \
+				'publish[will publish *.war file to repository]'
 		;;
 		(args)
 			curcontext="${curcontext%:*:*}:skinny-$words[1]:"
 			case $words[1] in
 				(g|generate)
 					_values \ 'commands' \
-						'controller' \
-						'model' \
-						'migration' \
-						'scaffold' \
-						'scaffold\:scaml' \
-						'scaffold\:jade' \
-						'reverse-scaffold' \
-						'reverse-scaffold\:scaml' \
-						'reverse-scaffold\:jade'
+						'controller[will generate controller]' \
+						'model[will generate model]' \
+						'migration[will generate db migration file]' \
+						'scaffold[will generate scaffold files with ssp templates]' \
+						'scaffold\:scaml[will generate scaffold files with scaml templates]' \
+						'scaffold\:jade[will generate scaffold files with jade templates]' \
+						'reverse-scaffold[will generate scaffold from existing database]' \
+						'reverse-scaffold\:scaml[will generate scaffold from existing database]' \
+						'reverse-scaffold\:jade[will generate ZZscaffold from existing database]'
 				;;
+				(run)
+					_values \ 'commands' \
+						'-precompile[will run application with Scalate precompilation]'
 			esac
 		;;
 	esac
-}
-
-_skinny_cmds() {
-	local commands; commands=(
-		'run'
-		'debug'
-		'd'
-		'clean'
-		'update'
-		'console'
-		'~compile'
-		'compile'
-		'test'
-		'~test'
-		'test-quick'
-		'~test-quick'
-		'test-only'
-		'~test-only'
-		'test\:coverage'
-		'scalajs\:watch'
-		'scalajs\:package'
-		'scalajs\:optimize'
-		'generate'
-		'scaffold[skinny g scaffold:{template} {resources} {resource} "{fieldName:paramType(:columnType)}" ...]'
-		'migration'
-		'controller'
-		'db\:migrate'
-		'db\:repair'
-		'eclipse'
-		'idea'
-		'gen-idea'
-		'package'
-		'package\:standalone'
-	)
-}
-
-_skinny-generate() {
 }
 
 compdef _skinny skinny
