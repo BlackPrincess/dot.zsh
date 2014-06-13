@@ -32,4 +32,3 @@ fi
 alias ssh=ssh_screen
 
 alias git=hub
-compdef hub=git

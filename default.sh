@@ -52,9 +52,5 @@ setopt noautoremoveslash
 #
 setopt nolistbeep
 
-
-autoload -U compinit
-compinit
-
 # reporttime
 export REPORTTIME=5

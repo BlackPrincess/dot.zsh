@@ -5,6 +5,8 @@ PROMPT=$'\U1F604 '
 # ------------------------------
 # Environment variable configuration
 # ------------------------------
+fpath=(/usr/local/share/zsh-completions $fpath)
+autoload -U compinit ; compinit
 . ${SCRIPT_DIR}/environment.sh
 
 # ------------------------------
@@ -37,6 +39,4 @@ PROMPT=$'\U1F604 '
 # ------------------------------
 # original settings
 # ------------------------------
-fpath=(/usr/local/share/zsh-completions $fpath)
-
 . ${SCRIPT_DIR}/extend.sh
