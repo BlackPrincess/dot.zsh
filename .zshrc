@@ -1,5 +1,5 @@
 # users generic .zshrc file for zsh(1)
-SCRIPT_DIR="${HOME}/.zsh"
+SCRIPT_DIR="${HOME}/dot.zsh"
 
 PROMPT=$'\U1F604 '
 # ------------------------------
