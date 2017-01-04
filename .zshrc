@@ -35,6 +35,8 @@ autoload -U compinit ; compinit
 . $SCRIPT_DIR/extra/rprompt_git_current_branch.sh
 . $SCRIPT_DIR/extra/do_enter.sh
 . $SCRIPT_DIR/extra/history-ranking.sh
+. $SCRIPT_DIR/extra/peco-select-history.sh
+. $SCRIPT_DIR/extra/google.sh
 
 # ------------------------------
 # original settings

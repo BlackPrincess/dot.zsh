@@ -25,10 +25,6 @@ alias su="su -l"
 alias va="vagrant"
 alias where="command -v"
 
-if [ "${PAGER}" != "less" ]; then
-  alias less=$PAGER
-fi
-
 alias ssh=ssh_screen
 
 alias git=hub
