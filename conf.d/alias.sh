@@ -1,15 +1,7 @@
 # expand aliases before completing
 setopt complete_aliases # aliased ls needs if file/dir completions work
 
-case "${OSTYPE}" in
-freebsd*|darwin*)
-  alias ls="ls -G -w"
-  ;;
-linux*)
-  alias ls="ls --color"
-  ;;
-esac
-
+alias ls="ls -G -w"
 alias a=alias
 alias du="du -h"
 alias df="df -h"
